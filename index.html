@@ -1,0 +1,108 @@
+# Python code for HScore calculator
+
+def calculate_hscore(immunosuppression, temperature, organomegaly, cytopenias, ferritin, triglyceride, fibrinogen, ast, hemophagocytosis):
+    # Assign points based on the provided criteria
+    points = 0
+
+    # Known underlying immunosuppression
+    if immunosuppression:
+        points += 18
+
+    # Temperature
+    if temperature < 101.1:
+        points += 0
+    elif 101.1 <= temperature <= 102.9:
+        points += 33
+    else:
+        points += 49
+
+    # Organomegaly
+    if organomegaly == "Hepatomegaly or splenomegaly":
+        points += 23
+    elif organomegaly == "Hepatomegaly and splenomegaly":
+        points += 38
+
+    # Number of cytopenias
+    if cytopenias == "1 lineage":
+        points += 0
+    elif cytopenias == "2 lineages":
+        points += 24
+    else:
+        points += 34
+
+    # Ferritin
+    if ferritin < 2000:
+        points += 0
+    elif 2000 <= ferritin <= 6000:
+        points += 35
+    else:
+        points += 50
+
+    # Triglyceride
+    if triglyceride < 132.7:
+        points += 0
+    elif 132.7 <= triglyceride <= 354:
+        points += 44
+    else:
+        points += 64
+
+    # Fibrinogen
+    if fibrinogen > 250:
+        points += 0
+    else:
+        points += 30
+
+    # AST
+    if ast < 30:
+        points += 0
+    else:
+        points += 19
+
+    # Hemophagocytosis features on bone marrow aspirate
+    if hemophagocytosis:
+        points += 35
+
+    return points
+
+def interpret_hscore(hscore):
+    # Interpretation of HScore
+    if hscore <= 90:
+        return "<1%"
+    elif 91 <= hscore <= 100:
+        return "~1%"
+    elif 101 <= hscore <= 110:
+        return "1-3%"
+    elif 111 <= hscore <= 120:
+        return "3-5%"
+    elif 121 <= hscore <= 130:
+        return "5-9%"
+    elif 131 <= hscore <= 140:
+        return "9-16%"
+    elif 141 <= hscore <= 150:
+        return "16-25%"
+    elif 151 <= hscore <= 160:
+        return "25-40%"
+    elif 161 <= hscore <= 170:
+        return "40-54%"
+    elif 171 <= hscore <= 180:
+        return "54-70%"
+    elif 181 <= hscore <= 190:
+        return "70-80%"
+    elif 191 <= hscore <= 200:
+        return "80-88%"
+    elif 201 <= hscore <= 210:
+        return "88-93%"
+    elif 211 <= hscore <= 220:
+        return "93-96%"
+    elif 221 <= hscore <= 230:
+        return "96-98%"
+    elif 231 <= hscore <= 240:
+        return "98-99%"
+    else:
+        return ">99%"
+
+# Example Usage:
+hscore = calculate_hscore(True, 102.0, "Hepatomegaly or splenomegaly", "2 lineages", 3000, 200, 200, 40, True)
+interpretation = interpret_hscore(hscore)
+
+print(f"HScore: {hscore}\nProbability of hemophagocytic syndrome: {interpretation}")
